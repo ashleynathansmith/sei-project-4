@@ -7,6 +7,8 @@ class Article(models.Model):
   image = models.CharField(max_length=200)
   created_at = models.DateTimeField(auto_now_add=True)
   is_Promoted = models.BooleanField(default=False)
+  types = models.ManyToManyField('article_types.ArticleType', related_name='articles')
+  
 
   def __str__(self):
         return f"{self.headline} - {self.created_at}"

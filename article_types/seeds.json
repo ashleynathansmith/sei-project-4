@@ -1,0 +1,44 @@
+[
+{
+  "model": "article_types.articletype",
+  "pk": 1,
+  "fields": {
+    "name": "Sport"
+  }
+},
+{
+  "model": "article_types.articletype",
+  "pk": 2,
+  "fields": {
+    "name": "Entertainment"
+  }
+},
+{
+  "model": "article_types.articletype",
+  "pk": 3,
+  "fields": {
+    "name": "Business"
+  }
+},
+{
+  "model": "article_types.articletype",
+  "pk": 4,
+  "fields": {
+    "name": "Film"
+  }
+},
+{
+  "model": "article_types.articletype",
+  "pk": 5,
+  "fields": {
+    "name": "Technology"
+  }
+},
+{
+  "model": "article_types.articletype",
+  "pk": 6,
+  "fields": {
+    "name": "Money"
+  }
+}
+]

@@ -2,12 +2,15 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.exceptions import NotFound
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from .models import Article
 from .serializers.common import ArticleSerializer
 from .serializers.populated import PopulatedArticleSerializer
 
 class ArticleListView(APIView):
+
+  permission_classes = (IsAuthenticatedOrReadOnly, )
 
   def get(self, _request):
     articles = Article.objects.all()
@@ -22,6 +25,8 @@ class ArticleListView(APIView):
     return Response(article_to_create.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
 
 class ArticleDetailView(APIView):
+
+  permission_classes = (IsAuthenticatedOrReadOnly, )
 
   def get_article(slef, pk):
     try:
