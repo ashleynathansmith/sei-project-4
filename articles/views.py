@@ -1,8 +1,8 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.exceptions import NotFound
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.exceptions import NotFound, PermissionDenied
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 
 from .models import Article
 from .serializers.common import ArticleSerializer
@@ -18,6 +18,7 @@ class ArticleListView(APIView):
     return Response(serialized_article.data, status=status.HTTP_200_OK)
 
   def post(self, request):
+    request.data['owner'] = request.user.id
     article_to_create = ArticleSerializer(data=request.data)
     if article_to_create.is_valid():
       article_to_create.save()
@@ -41,14 +42,29 @@ class ArticleDetailView(APIView):
 
   def put(self, request, pk):
     article_to_update = self.get_article(pk=pk)
+    if article_to_update.owner.id != request.user.id:
+      raise PermissionDenied()
     updated_article = ArticleSerializer(article_to_update, data=request.data)
     if updated_article.is_valid():
       updated_article.save()
       return Response(updated_article.data, status=status.HTTP_202_ACCEPTED)
     return Response(updated_article.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
 
-  def delete(self, _request, pk):
+  def delete(self, request, pk):
     article_to_delete = self.get_article(pk=pk)
+    if article_to_delete.owner.id != request.user.id:
+      raise PermissionDenied()
     article_to_delete.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
+
+class ArticleFavoriteView(ArticleDetailView):
+
+  permission_classes = (IsAuthenticated, )
+
+  def post(self, request, pk):
+    article_to_like = self.get_article(pk=pk)
+    article_to_like.favorited_by.add(request.user.id)
+    article_to_like.save()
+    serialized_liked_article = PopulatedArticleSerializer(article_to_like)
+    return Response(serialized_liked_article.data, status=status.HTTP_201_CREATED)
   
