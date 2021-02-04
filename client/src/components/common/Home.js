@@ -5,7 +5,7 @@ function Home() {
     <section className="hero is-fullheight-with-navbar is-light">
       <div className="hero-body">
         <div className="container">
-          <h1 className="title is-1 has-text-centered">
+          <h1 className="title is-1 has-text-centered is-family-code">
             NOT FAKE NEWS
           </h1>
         </div>

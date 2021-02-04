@@ -39,7 +39,7 @@ function Register() {
         <div className="columns">
           <form className="column is-4 is-offset-4 box" onSubmit={handleSubmit}>
             <div className="field">
-              <label className="label">Username</label>
+              <label className="label is-family-code">Username</label>
               <div className="control">
                 <input
                   className={`input ${error.username ? 'is-danger' : ''}`}
@@ -54,7 +54,7 @@ function Register() {
             </div>
 
             <div className="field">
-              <label className="label">First Name</label>
+              <label className="label is-family-code">First Name</label>
               <div className="control">
                 <input
                   className={`input ${error.first_name ? 'is-danger' : ''}`}
@@ -69,7 +69,7 @@ function Register() {
             </div>
 
             <div className="field">
-              <label className="label">Last Name</label>
+              <label className="label is-family-code">Last Name</label>
               <div className="control">
                 <input
                   className={`input ${error.last_name ? 'is-danger' : ''}`}
@@ -84,7 +84,7 @@ function Register() {
             </div>
 
             <div className="field">
-              <label className="label">Email</label>
+              <label className="label is-family-code">Email</label>
               <div className="control">
                 <input
                   className={`input ${error.email ? 'is-danger' : ''}`}
@@ -99,7 +99,7 @@ function Register() {
             </div>
 
             <div className="field">
-              <label className="label">Profile Image</label>
+              <label className="label is-family-code">Profile Image</label>
               <div className="control">
                 <input
                   className={`input ${error.profile_image ? 'is-danger' : ''}`}
@@ -113,7 +113,7 @@ function Register() {
               {error.profile_image && <p className="help is-danger">{error.profile_image}</p>}
             </div>
             <div className="field">
-              <label className="label">Password</label>
+              <label className="label is-family-code">Password</label>
               <div className="control">
                 <input
                   type="password"
@@ -127,7 +127,7 @@ function Register() {
               {error.password && <p className="help is-danger">{error.password}</p>}
             </div>
             <div className="field">
-              <label className="label">Password Confirmation</label>
+              <label className="label is-family-code">Password Confirmation</label>
               <div className="control">
                 <input
                   type="password"
@@ -141,7 +141,7 @@ function Register() {
               {error.password_confirmation && <p className="help is-danger">{error.password_confirmation}</p>}
             </div>
             <div className="field">
-              <button type="submit" className="button is-fullwidth has-background-light">Register</button>
+              <button type="submit" className="button is-fullwidth has-background-light is-family-code">Register</button>
             </div>
           </form>
         </div>

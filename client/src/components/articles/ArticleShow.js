@@ -25,7 +25,8 @@ function ArticleShow() {
   }, [id])
 
   const { formdata, handleChange, setFormdata } = useForm({
-    text: ''
+    text: '',
+    article: 7
   })
   
   const handleDelete = async () => {
@@ -37,14 +38,11 @@ function ArticleShow() {
     }
   }
 
-  const handleComment = async (e) => {
+  const handleSubmitComment = async (e) => {
     e.preventDefault()
     try {
-      const { data } = await createArticleComment(id, formdata)
-      setFormdata({
-        text: ''
-      })
-      setArticle(data)
+      const { data } = await createArticleComment(formdata)
+      setFormdata(data)
     } catch (err) {
       console.log(err)
     }
@@ -53,6 +51,8 @@ function ArticleShow() {
   const handleFocus = () => {
     setError(false)
   }
+
+  console.log(formdata.text)
 
   return (
     <section className="section">
@@ -70,61 +70,38 @@ function ArticleShow() {
                   <img src={article.image} alt={article.headline}/>
                 </figure>
 
-                <article className="media mt-5">
-                  <figure className="media-left">
-                    <p className="image is-64x64">
-                      <img src={article.comments[0].owner.profile_image} />
-                    </p>
-                  </figure>
-                  <div className="media-content">
-                    <div className="content">
-                      <p>
-                        <strong>{article.comments[0].owner.username}</strong>
-                        <br />
-                        {article.comments[0].text}
-                        <br />
-                        <small><a>Like</a> · <a>Reply</a> · {article.comments[0].created_at}</small>
-                      </p>
-                    </div>
-                  </div>
-                </article>
-                <article className="media">
-                  <figure className="media-left">
-                    <p className="image is-64x64">
-                      <img src={article.comments[1].owner.profile_image} />
-                    </p>
-                  </figure>
-                  <div className="media-content">
-                    <div className="content">
-                      <p>
-                        <strong>{article.comments[1].owner.username}</strong>
-                        <br />
-                        {article.comments[1].text}
-                        <br />
-                        <small><a>Like</a> · <a>Reply</a> · {article.comments[1].created_at}</small>
-                      </p>
-                    </div>
-                  </div>
-                </article>
-                <article className="media m-1">
-                  <figure className="media-left">
-                    <p className="image is-64x64">
-                      <img src={article.comments[2].owner.profile_image} />
-                    </p>
-                  </figure>
-                  <div className="media-content">
-                    <div className="content">
-                      <p>
-                        <strong>{article.comments[2].owner.username}</strong>
-                        <br />
-                        {article.comments[2].text}
-                        <br />
-                        <small><a>Like</a> · <a>Reply</a> · {article.comments[2].created_at}</small>
-                      </p>
-                    </div>
-                  </div>
-                </article>
-                <form onSubmit={handleComment}>
+                
+                  
+                {article.comments.map(comment => {
+                  return (
+                    <article key={comment.id} className="media m-1">
+                      <figure className="media-left">
+                        <p className="image is-64x64">
+                          <img src={comment.owner.profile_image} />
+                        </p>
+                      </figure>
+                      <div className="media-content">
+                        <div className="content">
+                          <p>
+                            <strong>{comment.owner.username}</strong>
+                            <br />
+                            {comment.text}
+                            <br />
+                            <small><a>Like</a> · <a>Reply</a> · {comment.created_at}</small>
+                          </p>
+                        </div>
+                      </div>
+                    </article>
+                  )
+                })}
+                
+
+
+                  
+                
+                
+                
+                <form onSubmit={handleSubmitComment}>
                   <div className="field">
                     <label className="label">Comment</label>
                     <div className="control">
@@ -140,6 +117,13 @@ function ArticleShow() {
                 <div className="column is-6">
                   <p className="is-family-code">{article.description}</p>
                   <hr />
+                  <footer className="footer">
+                    <div className="content has-text-centered">
+                      <p>
+                        <strong>NOT FAKE NEWS</strong> www.notfakenews.com
+                      </p>
+                    </div>
+                  </footer>
                   <div>
                     {isOwner(article.owner.id) ? <button className="button is-light"
                       onClick={handleDelete}>Delete

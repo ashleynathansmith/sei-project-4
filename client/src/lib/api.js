@@ -12,7 +12,7 @@ export function getAllArticles() {
 }
 
 export function getOneArticle(id) {
-  return axios.get(`${baseUrl}/articles/${id}`)
+  return axios.get(`${baseUrl}/articles/${id}/`)
 }
 
 export function createArticle(formdata) {
@@ -20,11 +20,11 @@ export function createArticle(formdata) {
 }
 
 export function deleteArticle(id) {
-  return axios.delete(`${baseUrl}/articles/${id}`, headers())
+  return axios.delete(`${baseUrl}/articles/${id}/`, headers())
 }
 
-export function createArticleComment(id, formdata) {
-  return axios.post(`${baseUrl}/articles/${id}/`, formdata, headers())
+export function createArticleComment(formdata) {
+  return axios.post(`${baseUrl}/comments/`, formdata, headers())
 }
 
 // * Auth Requests

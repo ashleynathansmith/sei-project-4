@@ -34,7 +34,7 @@ function Login() {
         <div className="columns mt-6">
           <form className="box column is-4 is-offset-4" onSubmit={handleSubmit}>
             <div className="field">
-              <label className="label">Email</label>
+              <label className="label is-family-code">Email</label>
               <div className="control">
                 <input
                   className={`input ${error ? 'is-danger' : ''}`}
@@ -47,7 +47,7 @@ function Login() {
               </div>
             </div>
             <div className="field">
-              <label className="label">Password</label>
+              <label className="label is-family-code">Password</label>
               <div className="control">
                 <input
                   type="password"
@@ -62,7 +62,7 @@ function Login() {
               {error && <p className="help is-danger">Sorry, your email or password are incorrect</p>}
             </div>
             <div className="field">
-              <button type="submit" className="button is-fullwidth has-background-light">Log In</button>
+              <button type="submit" className="button is-fullwidth has-background-light is-family-code">Log In</button>
             </div>
           </form>
         </div>
